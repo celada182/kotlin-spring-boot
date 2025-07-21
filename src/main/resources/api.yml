@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: Blog API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api
+
+paths:
+  /article:
+    get:
+      tags:
+        - Article
+      operationId: findAllArticles
+      summary: List of articles
+      responses:
+        '200':
+          description: Ok response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Article"
+
+  /article/{slug}:
+    get:
+      tags:
+        - Article
+      operationId: findOneArticle
+      summary: Article detail
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+
+  /user:
+    get:
+      tags:
+        - User
+      operationId: findAllUsers
+      summary: List of users
+      responses:
+        '200':
+          description: Ok response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /user/{login}:
+    get:
+      tags:
+        - User
+      operationId: findOneUser
+      summary: User detail
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+        login:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        description:
+          type: string
+
+    Article:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+        title:
+          type: string
+        headLine:
+          type: string
+        content:
+          type: string
+        author:
+          $ref: "#/components/schemas/User"
+        slug:
+          type: string
+        addedAt:
+          type: string
+          format: date-time
+          example: "2021-01-30T08:30:00Z"
