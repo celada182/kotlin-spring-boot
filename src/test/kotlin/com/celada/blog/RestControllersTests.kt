@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 class RestControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
-    lateinit var bloggerRepository: BloggerRepository
+    lateinit var userRepository: UserRepository
 
     @MockkBean
     lateinit var articleRepository: ArticleRepository
 
     @Test
     fun `List articles`() {
-        val johnDoe = Blogger("johnDoe", "John", "Doe")
+        val johnDoe = User("johnDoe", "John", "Doe")
         val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe)
         val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe)
         every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(lorem5Article, ipsumArticle)
@@ -36,10 +36,10 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `List bloggers`() {
-        val johnDoe = Blogger("johnDoe", "John", "Doe")
-        val janeDoe = Blogger("janeDoe", "Jane", "Doe")
-        every { bloggerRepository.findAll() } returns listOf(johnDoe, janeDoe)
-        mockMvc.perform(get("/api/blogger/").accept(MediaType.APPLICATION_JSON))
+        val johnDoe = User("johnDoe", "John", "Doe")
+        val janeDoe = User("janeDoe", "Jane", "Doe")
+        every { userRepository.findAll() } returns listOf(johnDoe, janeDoe)
+        mockMvc.perform(get("/api/user/").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$.[0].login").value(johnDoe.login))

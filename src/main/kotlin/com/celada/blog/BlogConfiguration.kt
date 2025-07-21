@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration
 class BlogConfiguration {
 
     @Bean
-    fun databaseInitializer(bloggerRepository: BloggerRepository,
+    fun databaseInitializer(userRepository: UserRepository,
                             articleRepository: ArticleRepository) = ApplicationRunner {
 
-        val johnDoe = bloggerRepository.save(Blogger("johnDoe", "John", "Doe"))
+        val johnDoe = userRepository.save(User("johnDoe", "John", "Doe"))
         articleRepository.save(
             Article(
                 title = "Lorem",
