@@ -1,0 +1,15 @@
+meta {
+  name: Article
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/article/:slug
+  body: none
+  auth: inherit
+}
+
+params:path {
+  slug: ipsum
+}
