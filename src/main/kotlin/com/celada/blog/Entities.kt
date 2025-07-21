@@ -11,13 +11,13 @@ class Article(
     var title: String,
     var headline: String,
     var content: String,
-    @ManyToOne var author: Bloger,
+    @ManyToOne var author: Blogger,
     var slug: String = title.toSlug(),
     var addedAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null)
 
 @Entity
-class Bloger(
+class Blogger(
     var login: String,
     var firstname: String,
     var lastname: String,
