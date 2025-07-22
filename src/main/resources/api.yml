@@ -21,7 +21,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Article"
+                  $ref: "#/components/schemas/RestArticle"
 
   /article/{slug}:
     get:
@@ -41,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Article"
+                $ref: "#/components/schemas/RestArticle"
 
   /user:
     get:
@@ -57,7 +57,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
+                  $ref: "#/components/schemas/RestUser"
 
   /user/{login}:
     get:
@@ -77,11 +77,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/RestUser"
 
 components:
   schemas:
-    User:
+    RestUser:
       type: object
       properties:
         id:
@@ -96,7 +96,7 @@ components:
         description:
           type: string
 
-    Article:
+    RestArticle:
       type: object
       properties:
         id:
@@ -109,7 +109,7 @@ components:
         content:
           type: string
         author:
-          $ref: "#/components/schemas/User"
+          $ref: "#/components/schemas/RestUser"
         slug:
           type: string
         addedAt:

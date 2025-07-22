@@ -36,6 +36,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
@@ -159,14 +164,16 @@
                                 ${project.basedir}/src/main/resources/api.yml
                             </inputSpec>
                             <generatorName>kotlin-spring</generatorName>
+                            <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
                                 <basePackage>com.celada.blog</basePackage>
                                 <apiPackage>com.celada.blog.api</apiPackage>
                                 <modelPackage>com.celada.blog.model</modelPackage>
                                 <configPackage>com.celada.blog.config</configPackage>
-                                <delegatePattern>true</delegatePattern>
-                                <interfaceOnly>false</interfaceOnly>
-                                <modelNameSuffix>Dto</modelNameSuffix>
+                                <requestMappingMode>api_interface</requestMappingMode>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <apiSuffix>Api</apiSuffix>
                             </configOptions>
                         </configuration>
                     </execution>

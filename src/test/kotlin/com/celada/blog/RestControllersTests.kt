@@ -1,5 +1,7 @@
 package com.celada.blog
 
+import com.celada.blog.domain.article.ArticleService
+import com.celada.blog.rest.ArticleController
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
@@ -19,13 +21,16 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
     @MockkBean
     lateinit var articleRepository: ArticleRepository
 
+    @MockkBean
+    lateinit var articleService: ArticleService
+
     @Test
     fun `List articles`() {
-        val johnDoe = User("johnDoe", "John", "Doe")
-        val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe)
-        val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe)
-        every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(lorem5Article, ipsumArticle)
-        mockMvc.perform(get("/api/article/").accept(MediaType.APPLICATION_JSON))
+        val johnDoe = User("johnDoe", "John", "Doe", id = 1)
+        val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe, id = 1)
+        val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe, id = 2)
+        every { articleService.findAll() } returns listOf(lorem5Article, ipsumArticle)
+        mockMvc.perform(get("/api/article").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$.[0].author.login").value(johnDoe.login))
