@@ -1,7 +1,7 @@
 package com.celada.blog
 
 import com.celada.blog.domain.article.ArticleService
-import com.celada.blog.rest.ArticleController
+import com.celada.blog.domain.user.UserService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
@@ -16,19 +16,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 class RestControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
-    lateinit var userRepository: UserRepository
-
-    @MockkBean
-    lateinit var articleRepository: ArticleRepository
-
-    @MockkBean
     lateinit var articleService: ArticleService
+
+    @MockkBean
+    lateinit var userService: UserService
+
+    val johnDoe = User("johnDoe", "John", "Doe", id = 1)
+    val janeDoe = User("janeDoe", "Jane", "Doe", id = 2)
+    val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe, id = 1)
+    val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe, id = 2)
 
     @Test
     fun `List articles`() {
-        val johnDoe = User("johnDoe", "John", "Doe", id = 1)
-        val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe, id = 1)
-        val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe, id = 2)
         every { articleService.findAll() } returns listOf(lorem5Article, ipsumArticle)
         mockMvc.perform(get("/api/article").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
@@ -40,14 +39,34 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    fun `List bloggers`() {
-        val johnDoe = User("johnDoe", "John", "Doe")
-        val janeDoe = User("janeDoe", "Jane", "Doe")
-        every { userRepository.findAll() } returns listOf(johnDoe, janeDoe)
-        mockMvc.perform(get("/api/user/").accept(MediaType.APPLICATION_JSON))
+    fun `Single article`() {
+        val slug = "ipsum";
+        every { articleService.findBySlug(slug) } returns ipsumArticle
+        mockMvc.perform(get("/api/article/$slug")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("\$.author.login").value(johnDoe.login))
+            .andExpect(jsonPath("\$.slug").value(ipsumArticle.slug))
+    }
+
+    @Test
+    fun `List users`() {
+        every { userService.findAll() } returns listOf(johnDoe, janeDoe)
+        mockMvc.perform(get("/api/user").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$.[0].login").value(johnDoe.login))
             .andExpect(jsonPath("\$.[1].login").value(janeDoe.login))
+    }
+
+    @Test
+    fun `Single user`() {
+        val login = "janeDoe";
+        every { userService.findByLogin(login) } returns janeDoe
+        mockMvc.perform(get("/api/user/$login").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("\$.login").value(janeDoe.login))
     }
 }
