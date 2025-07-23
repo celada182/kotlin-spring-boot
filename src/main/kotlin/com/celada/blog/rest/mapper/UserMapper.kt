@@ -2,10 +2,14 @@ package com.celada.blog.rest.mapper
 
 import com.celada.blog.domain.model.User
 import com.celada.blog.model.RestUser
-import org.mapstruct.Mapper
+import java.math.BigDecimal
 
-@Mapper(componentModel = "spring")
-interface UserMapper {
-    fun toRest(user: User): RestUser
-    fun toDomain(userDto: RestUser): User
+fun mapUser(user: User): RestUser {
+    return RestUser(
+        BigDecimal.valueOf(user.id!!),
+        user.login,
+        user.firstname,
+        user.lastname,
+        user.description
+    )
 }

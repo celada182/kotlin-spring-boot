@@ -2,10 +2,21 @@ package com.celada.blog.rest.mapper
 
 import com.celada.blog.domain.model.Article
 import com.celada.blog.model.RestArticle
-import org.mapstruct.Mapper
+import java.math.BigDecimal
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
-@Mapper(componentModel = "spring")
-interface ArticleMapper {
-    fun toRest(article: Article): RestArticle
-    fun toDomain(userDto: RestArticle): Article
+fun mapArticle(article: Article): RestArticle {
+    return RestArticle(
+        BigDecimal.valueOf(
+            article.id!!
+        ),
+        article.title,
+        article.headline,
+        article.content,
+        mapUser(article.author),
+        article.slug,
+        OffsetDateTime.of(article.addedAt, ZoneOffset.UTC)
+    )
 }
+
