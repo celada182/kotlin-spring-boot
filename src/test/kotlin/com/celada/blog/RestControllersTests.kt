@@ -1,6 +1,8 @@
 package com.celada.blog
 
 import com.celada.blog.domain.article.ArticleService
+import com.celada.blog.domain.model.Article
+import com.celada.blog.domain.model.User
 import com.celada.blog.domain.user.UserService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -42,8 +44,10 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
     fun `Single article`() {
         val slug = "ipsum";
         every { articleService.findBySlug(slug) } returns ipsumArticle
-        mockMvc.perform(get("/api/article/$slug")
-            .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+            get("/api/article/$slug")
+                .accept(MediaType.APPLICATION_JSON)
+        )
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$.author.login").value(johnDoe.login))
