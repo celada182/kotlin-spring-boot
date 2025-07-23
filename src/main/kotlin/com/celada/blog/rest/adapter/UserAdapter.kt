@@ -1,6 +1,6 @@
 package com.celada.blog.rest.adapter
 
-import com.celada.blog.User
+import com.celada.blog.domain.model.User
 import com.celada.blog.model.RestUser
 import java.math.BigDecimal
 

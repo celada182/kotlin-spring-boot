@@ -1,7 +1,7 @@
 package com.celada.blog.domain.user
 
-import com.celada.blog.User
-import com.celada.blog.UserRepository
+import com.celada.blog.domain.model.User
+import com.celada.blog.ports.outbound.repository.UserRepository
 import org.springframework.stereotype.Service
 
 @Service

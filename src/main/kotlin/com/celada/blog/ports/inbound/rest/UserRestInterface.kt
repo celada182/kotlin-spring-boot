@@ -1,4 +1,4 @@
-package com.celada.blog.ports.inbound
+package com.celada.blog.ports.inbound.rest
 
 import com.celada.blog.api.UserApi
 

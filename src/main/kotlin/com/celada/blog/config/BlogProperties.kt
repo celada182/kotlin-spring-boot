@@ -1,4 +1,4 @@
-package com.celada.blog
+package com.celada.blog.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

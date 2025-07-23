@@ -1,5 +1,6 @@
 package com.celada.blog
 
+import com.celada.blog.domain.model.toSlug
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll

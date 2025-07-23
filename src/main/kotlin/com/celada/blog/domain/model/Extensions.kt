@@ -1,4 +1,4 @@
-package com.celada.blog
+package com.celada.blog.domain.model
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder

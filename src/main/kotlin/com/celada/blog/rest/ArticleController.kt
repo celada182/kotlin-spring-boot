@@ -2,7 +2,7 @@ package com.celada.blog.rest
 
 import com.celada.blog.domain.article.ArticleService
 import com.celada.blog.model.RestArticle
-import com.celada.blog.ports.inbound.ArticleRestInterface
+import com.celada.blog.ports.inbound.rest.ArticleRestInterface
 import com.celada.blog.rest.adapter.mapArticle
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable

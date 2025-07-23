@@ -1,6 +1,6 @@
 package com.celada.blog.rest.adapter
 
-import com.celada.blog.Article
+import com.celada.blog.domain.model.Article
 import com.celada.blog.model.RestArticle
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -19,3 +19,4 @@ fun mapArticle(article: Article): RestArticle {
         OffsetDateTime.of(article.addedAt, ZoneOffset.UTC)
     )
 }
+

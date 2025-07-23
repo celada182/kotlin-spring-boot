@@ -1,5 +1,6 @@
 package com.celada.blog
 
+import com.celada.blog.config.BlogProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
