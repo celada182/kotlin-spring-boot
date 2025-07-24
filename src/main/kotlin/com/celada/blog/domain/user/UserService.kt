@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(private val repository: UserRepository) {
+
+    init {
+
+    }
+
     fun findAll(): List<User?> {
         val users: Iterable<User?> = repository.findAll()
         return users.toList()

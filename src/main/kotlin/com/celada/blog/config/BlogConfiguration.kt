@@ -5,18 +5,15 @@ import com.celada.blog.persistence.relational.entity.EntityUser
 import com.celada.blog.persistence.relational.repository.h2.ArticleCrudRepository
 import com.celada.blog.persistence.relational.repository.h2.UserCrudRepository
 import org.springframework.boot.ApplicationRunner
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class BlogConfiguration {
+class BlogConfiguration(
+    userCrudRepository: UserCrudRepository,
+    articleCrudRepository: ArticleCrudRepository
+) {
 
-    @Bean
-    fun databaseInitializer(
-        userCrudRepository: UserCrudRepository,
-        articleCrudRepository: ArticleCrudRepository
-    ) = ApplicationRunner {
-
+    init {
         val johnDoe = userCrudRepository.save(EntityUser("johnDoe", "John", "Doe"))
         articleCrudRepository.save(
             EntityArticle(
