@@ -14,7 +14,12 @@ class BlogConfiguration(
 ) {
 
     init {
+        // Initial data
+        articleCrudRepository.deleteAll()
+        userCrudRepository.deleteAll()
+
         val johnDoe = userCrudRepository.save(EntityUser("johnDoe", "John", "Doe"))
+
         articleCrudRepository.save(
             EntityArticle(
                 title = "Lorem",
