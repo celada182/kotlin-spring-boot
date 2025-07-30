@@ -34,9 +34,9 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(get("/api/article").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("\$.[0].author.login").value(johnDoe.login))
+            .andExpect(jsonPath("\$.[0].author.login").value(johnDoe.username))
             .andExpect(jsonPath("\$.[0].slug").value(lorem5Article.slug))
-            .andExpect(jsonPath("\$.[1].author.login").value(johnDoe.login))
+            .andExpect(jsonPath("\$.[1].author.login").value(johnDoe.username))
             .andExpect(jsonPath("\$.[1].slug").value(ipsumArticle.slug))
     }
 
@@ -50,7 +50,7 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
         )
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("\$.author.login").value(johnDoe.login))
+            .andExpect(jsonPath("\$.author.login").value(johnDoe.username))
             .andExpect(jsonPath("\$.slug").value(ipsumArticle.slug))
     }
 
@@ -60,8 +60,8 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(get("/api/user").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("\$.[0].login").value(johnDoe.login))
-            .andExpect(jsonPath("\$.[1].login").value(janeDoe.login))
+            .andExpect(jsonPath("\$.[0].login").value(johnDoe.username))
+            .andExpect(jsonPath("\$.[1].login").value(janeDoe.username))
     }
 
     @Test
@@ -71,6 +71,6 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(get("/api/user/$login").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("\$.login").value(janeDoe.login))
+            .andExpect(jsonPath("\$.login").value(janeDoe.username))
     }
 }

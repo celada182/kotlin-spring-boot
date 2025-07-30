@@ -7,7 +7,7 @@ import java.math.BigDecimal
 fun mapUser(user: User): RestUser {
     return RestUser(
         BigDecimal.valueOf(user.id!!),
-        user.login,
+        user.username,
         user.firstname,
         user.lastname,
         user.description
