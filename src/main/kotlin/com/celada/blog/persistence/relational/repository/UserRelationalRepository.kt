@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository
 @Repository
 class UserRelationalRepository(private val crudRepository: UserCrudRepository, val mapper: UserMapper) :
     UserRepository {
-    override fun findByLogin(login: String): User? {
-        val entity = crudRepository.findByLogin(login);
+    override fun findByUsername(username: String): User? {
+        val entity = crudRepository.findByUsername(username);
         if (entity == null) {
             throw Exception("Article not found");
         }

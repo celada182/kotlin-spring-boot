@@ -1,5 +1,6 @@
 package com.celada.blog.config
 
+import com.celada.blog.domain.model.Role
 import com.celada.blog.persistence.relational.entity.EntityArticle
 import com.celada.blog.persistence.relational.entity.EntityUser
 import com.celada.blog.persistence.relational.repository.h2.ArticleCrudRepository
@@ -18,7 +19,7 @@ class BlogConfiguration(
         articleCrudRepository.deleteAll()
         userCrudRepository.deleteAll()
 
-        val johnDoe = userCrudRepository.save(EntityUser("johnDoe", "John", "Doe"))
+        val johnDoe = userCrudRepository.save(EntityUser("johnDoe", "123456", Role.USER,"John", "Doe"))
 
         articleCrudRepository.save(
             EntityArticle(

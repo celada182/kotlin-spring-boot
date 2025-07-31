@@ -2,6 +2,7 @@ package com.celada.blog
 
 import com.celada.blog.domain.article.ArticleService
 import com.celada.blog.domain.model.Article
+import com.celada.blog.domain.model.Role
 import com.celada.blog.domain.model.User
 import com.celada.blog.domain.user.UserService
 import com.ninjasquad.springmockk.MockkBean
@@ -23,8 +24,8 @@ class RestControllersTests(@Autowired val mockMvc: MockMvc) {
     @MockkBean
     lateinit var userService: UserService
 
-    val johnDoe = User("johnDoe", "John", "Doe", id = 1)
-    val janeDoe = User("janeDoe", "Jane", "Doe", id = 2)
+    val johnDoe = User("johnDoe", "123456", Role.USER,"John", "Doe", id = 1)
+    val janeDoe = User("janeDoe", "123456", Role.USER,"Jane","Doe", id = 2)
     val lorem5Article = Article("Lorem", "Lorem", "dolor sit amet", johnDoe, id = 1)
     val ipsumArticle = Article("Ipsum", "Ipsum", "dolor sit amet", johnDoe, id = 2)
 

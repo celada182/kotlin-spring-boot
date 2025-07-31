@@ -17,6 +17,6 @@ class UserService(private val repository: UserRepository) {
     }
 
     fun findByLogin(login: String): User? {
-        return repository.findByLogin(login);
+        return repository.findByUsername(login);
     }
 }
