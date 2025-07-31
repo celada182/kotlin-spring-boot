@@ -17,44 +17,44 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 class SecurityConfig {
-    @Bean
-    fun userDetailsService(userRepository: UserRepository): UserDetailsService =
-        JwtUserDetailsService(userRepository)
-
-    @Bean
-    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager =
-        config.authenticationManager
-
-    @Bean
-    fun authenticationProvider(userRepository: UserRepository): AuthenticationProvider =
-        DaoAuthenticationProvider()
-            .also {
-                it.setUserDetailsService(userDetailsService(userRepository))
-                it.setPasswordEncoder(encoder())
-            }
-
-    @Bean
-    fun securityFilterChain(
-        http: HttpSecurity,
-        jwtAuthenticationFilter: JwtAuthorizationFilter,
-        authenticationProvider: AuthenticationProvider
-    ): DefaultSecurityFilterChain {
-        http
-            .csrf { it.disable() }
-            .authorizeHttpRequests {
-                it
-                    .requestMatchers("/api/auth", "/api/auth/refresh", "/error")
-                    .permitAll()
-                    .anyRequest()
-                    .fullyAuthenticated()
-            }
-            .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-        return http.build()
-    }
+//    @Bean
+//    fun userDetailsService(userRepository: UserRepository): UserDetailsService =
+//        JwtUserDetailsService(userRepository)
+//
+//    @Bean
+//    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager =
+//        config.authenticationManager
+//
+//    @Bean
+//    fun authenticationProvider(userRepository: UserRepository): AuthenticationProvider =
+//        DaoAuthenticationProvider()
+//            .also {
+//                it.setUserDetailsService(userDetailsService(userRepository))
+//                it.setPasswordEncoder(encoder())
+//            }
+//
+//    @Bean
+//    fun securityFilterChain(
+//        http: HttpSecurity,
+//        jwtAuthenticationFilter: JwtAuthorizationFilter,
+//        authenticationProvider: AuthenticationProvider
+//    ): DefaultSecurityFilterChain {
+//        http
+//            .csrf { it.disable() }
+//            .authorizeHttpRequests {
+//                it
+//                    .requestMatchers("/api/auth", "/api/auth/refresh", "/error")
+//                    .permitAll()
+//                    .anyRequest()
+//                    .fullyAuthenticated()
+//            }
+//            .sessionManagement {
+//                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            }
+//            .authenticationProvider(authenticationProvider)
+//            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+//        return http.build()
+//    }
 
     @Bean
     fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
